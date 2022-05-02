@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ 
+ // Time complexity -- less than O(n) ie, O(log(n))
+ 
+class Solution {
+    public int countNodes(TreeNode root) {
+    
+        if(root==null) return 0;
+        
+        int left = nodeLeft(root.left);
+        int right = nodeRight(root.right);
+        
+        // if both side has same height we will compute from formula ie, (2^h - 1) where h is the height of tree.
+        if(left==right) return (2<<left)-1;
+        
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+    public int nodeLeft(TreeNode root){
+    
+        int count = 0;
+        TreeNode curr = root;
+        while(curr!=null){
+            count++;
+            curr = curr.left;
+        }
+        return count;
+    }
+    public int nodeRight(TreeNode root){
+    
+        int count = 0;
+        TreeNode curr = root;
+        while(curr!=null){
+            count++;
+            curr = curr.right;
+        }
+        
+        return count;
+    }
+}
