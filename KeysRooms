@@ -1,0 +1,29 @@
+class Solution {
+
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+    
+        boolean[] seen = new boolean[rooms.size()];
+        seen[0] = true;
+        
+        Stack<Integer> stack = new Stack();
+        stack.push(0);
+
+        
+        while (!stack.isEmpty()) { 
+        
+            int node = stack.pop(); 
+            
+            for (int nei: rooms.get(node)) 
+            
+                if (!seen[nei]) { 
+                    seen[nei] = true; // mark that we've entered the room
+                    stack.push(nei); // add the key to the todo list
+                }
+        }
+
+        for (boolean v: seen)  
+            if (!v) return false;
+            
+        return true;
+    }
+}
